@@ -41,7 +41,7 @@ export default async function StoryPage({ params }: PageProps) {
 
   return (
     <main className="h-dvh w-screen bg-black sm:flex sm:items-center sm:justify-center">
-      <div className="h-full w-full sm:w-auto sm:max-w-sm">
+      <div className="h-full w-full sm:h-auto sm:w-full sm:max-w-sm">
         <StoryViewer data={story.data!} />
       </div>
     </main>

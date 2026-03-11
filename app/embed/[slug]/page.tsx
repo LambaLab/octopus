@@ -23,7 +23,7 @@ export default async function EmbedPage({ params }: PageProps) {
   // Minimal wrapper for iframe embedding — no chrome, just the story
   return (
     <div className="h-dvh w-screen bg-black sm:flex sm:items-center sm:justify-center">
-      <div className="h-full w-full sm:w-auto sm:max-w-sm">
+      <div className="h-full w-full sm:h-auto sm:w-full sm:max-w-sm">
         <StoryViewer data={story.data!} isEmbed />
       </div>
     </div>
