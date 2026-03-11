@@ -112,8 +112,7 @@ export function StoryViewer({ data, isEmbed = false }: StoryViewerProps) {
 
   return (
     <div
-      className="story-container relative overflow-hidden bg-black select-none"
-      style={{ aspectRatio: '9/16', maxHeight: '100dvh' }}
+      className="story-container relative overflow-hidden bg-black select-none h-full w-full sm:aspect-[9/16] sm:max-h-[100dvh] sm:h-auto sm:w-auto"
       onClick={handleTap}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
