@@ -9,7 +9,7 @@ interface FirecrawlResponse {
       ogImage?: string
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    llm_extraction?: any
+    extract?: any
   }
   error?: string
 }
@@ -52,9 +52,9 @@ export async function scrapeWithFirecrawl(url: string): Promise<Property | null>
   })
 
   const json: FirecrawlResponse = await res.json()
-  if (!json.success || !json.data?.llm_extraction) return null
+  if (!json.success || !json.data?.extract) return null
 
-  const e = json.data.llm_extraction
+  const e = json.data.extract
   const urlId = url.match(/details-(\d+)/)?.[1] ?? Date.now().toString()
 
   return {
