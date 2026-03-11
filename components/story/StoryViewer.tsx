@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Property } from '@/types/property'
 import { ProgressBar } from './ProgressBar'
 import { CTABar } from './CTABar'
@@ -36,7 +36,7 @@ const AUTO_ADVANCE_MS = 6000
 const LONG_PRESS_MS = 300
 
 export function StoryViewer({ data, isEmbed = false }: StoryViewerProps) {
-  const slides = buildSlides(data)
+  const slides = useMemo(() => buildSlides(data), [data])
   const totalSlides = slides.length
 
   const [current, setCurrent] = useState(0)

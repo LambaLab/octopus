@@ -30,15 +30,19 @@ export default function Dashboard() {
 
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
+      let buffer = ''
 
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
 
-        const text = decoder.decode(value, { stream: true })
-        const lines = text.split('\n').filter(Boolean)
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        // Keep the last (potentially incomplete) line in the buffer
+        buffer = lines.pop() ?? ''
 
         for (const line of lines) {
+          if (!line.trim()) continue
           const event: GenerateEvent = JSON.parse(line)
 
           if (event.type === 'status') {
