@@ -40,8 +40,8 @@ export default async function StoryPage({ params }: PageProps) {
   if (!story) notFound()
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-black">
-      <div className="w-full max-w-sm mx-auto">
+    <main className="h-dvh w-screen bg-black sm:flex sm:items-center sm:justify-center">
+      <div className="h-full w-full sm:w-auto sm:max-w-sm">
         <StoryViewer data={story.data!} />
       </div>
     </main>
