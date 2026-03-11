@@ -10,18 +10,12 @@ import { DetailsSlide } from './slides/DetailsSlide'
 import { AmenitiesSlide } from './slides/AmenitiesSlide'
 import { MapSlide } from './slides/MapSlide'
 import { SlideNav } from './SlideNav'
+import type { SlideDescriptor } from './types'
 
 interface StoryViewerProps {
   data: Property
   isEmbed?: boolean
 }
-
-type SlideDescriptor =
-  | { type: 'cover' }
-  | { type: 'media'; index: number }
-  | { type: 'details' }
-  | { type: 'amenities' }
-  | { type: 'map' }
 
 function buildSlides(data: Property): SlideDescriptor[] {
   return [

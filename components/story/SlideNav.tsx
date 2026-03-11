@@ -2,13 +2,7 @@
 
 import type { ComponentType } from 'react'
 import { Home, Images, AlignLeft, LayoutGrid } from 'lucide-react'
-
-type SlideDescriptor =
-  | { type: 'cover' }
-  | { type: 'media'; index: number }
-  | { type: 'details' }
-  | { type: 'amenities' }
-  | { type: 'map' }
+import type { SlideDescriptor } from './types'
 
 interface SlideNavProps {
   slides: SlideDescriptor[]
