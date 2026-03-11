@@ -36,15 +36,15 @@ function Segment({
   const fillRef = useRef<HTMLDivElement>(null)
   const startTimeRef = useRef<number | null>(null)
   const rafRef = useRef<number | null>(null)
-  const elapsedRef = useRef(0)
   const pausedAtRef = useRef<number | null>(null)
+  // Use a ref for paused so the RAF loop always reads the latest value
+  const pausedRef = useRef(paused)
+  useEffect(() => { pausedRef.current = paused }, [paused])
 
   useEffect(() => {
     if (state !== 'active') return
 
-    // Reset state when this segment becomes active
     startTimeRef.current = null
-    elapsedRef.current = 0
     pausedAtRef.current = null
 
     function animate(timestamp: number) {
@@ -52,16 +52,15 @@ function Segment({
         startTimeRef.current = timestamp
       }
 
-      if (paused) {
+      if (pausedRef.current) {
         if (pausedAtRef.current === null) {
           pausedAtRef.current = timestamp
-          elapsedRef.current = timestamp - startTimeRef.current
         }
         rafRef.current = requestAnimationFrame(animate)
         return
       }
 
-      // Resume after pause: shift the start time forward
+      // Resume after pause: shift start time forward by the paused duration
       if (pausedAtRef.current !== null) {
         const pauseDuration = timestamp - pausedAtRef.current
         startTimeRef.current += pauseDuration
@@ -85,16 +84,7 @@ function Segment({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, durationMs])
-
-  // Handle pause changes separately without restarting the animation
-  useEffect(() => {
-    // The animate loop checks `paused` via closure — this effect just
-    // ensures the RAF loop is running when unpausing from outside
-    if (state !== 'active' || !paused) return
-    // nothing to do here; the RAF loop handles pause inline
-  }, [state, paused])
 
   return (
     <div className="flex-1 h-0.5 rounded-full bg-white/30 overflow-hidden">
