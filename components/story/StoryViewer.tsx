@@ -9,6 +9,7 @@ import { MediaSlide } from './slides/MediaSlide'
 import { DetailsSlide } from './slides/DetailsSlide'
 import { AmenitiesSlide } from './slides/AmenitiesSlide'
 import { MapSlide } from './slides/MapSlide'
+import { SlideNav } from './SlideNav'
 
 interface StoryViewerProps {
   data: Property
@@ -57,6 +58,11 @@ export function StoryViewer({ data, isEmbed = false }: StoryViewerProps) {
 
   const goPrev = useCallback(() => {
     setCurrent((c) => Math.max(c - 1, 0))
+    setProgressKey((k) => k + 1)
+  }, [])
+
+  const goTo = useCallback((index: number) => {
+    setCurrent(index)
     setProgressKey((k) => k + 1)
   }, [])
 
@@ -144,6 +150,12 @@ export function StoryViewer({ data, isEmbed = false }: StoryViewerProps) {
             durationMs={AUTO_ADVANCE_MS}
           />
 
+          <SlideNav
+            slides={slides}
+            current={current}
+            onJump={goTo}
+          />
+
           {/* Arrow buttons shown on interactive slides */}
           {isInteractive && (
             <>
@@ -157,7 +169,7 @@ export function StoryViewer({ data, isEmbed = false }: StoryViewerProps) {
                 ‹
               </button>
               <button
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-20
+                className="absolute right-14 top-1/2 -translate-y-1/2 z-20
                            rounded-full bg-black/40 p-3 text-white backdrop-blur-sm
                            text-xl leading-none"
                 onClick={(e) => { e.stopPropagation(); goNext() }}
