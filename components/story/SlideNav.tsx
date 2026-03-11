@@ -1,5 +1,6 @@
 'use client'
 
+import type { ComponentType } from 'react'
 import { Home, Images, AlignLeft, LayoutGrid } from 'lucide-react'
 
 type SlideDescriptor =
@@ -17,7 +18,7 @@ interface SlideNavProps {
 
 interface NavItem {
   type: SlideDescriptor['type']
-  icon: React.ComponentType<{ size?: number; strokeWidth?: number; color?: string }>
+  icon: ComponentType<{ size?: number; strokeWidth?: number; color?: string }>
   label: string
 }
 
@@ -41,7 +42,7 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
         const targetIndex = firstIndexOf(type)
         if (targetIndex === -1) return null
 
-        const isActive = currentType === type || (currentType === 'media' && type === 'media')
+        const isActive = currentType === type
 
         return (
           <div key={type} className="flex flex-col items-center gap-0.5">
