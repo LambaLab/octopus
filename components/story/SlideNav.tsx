@@ -17,11 +17,13 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { type: 'cover',     icon: Home,        label: 'Cover' },
-  { type: 'media',     icon: Images,      label: 'Photos' },
-  { type: 'details',   icon: AlignLeft,   label: 'Details' },
-  { type: 'amenities', icon: LayoutGrid,  label: 'Amenities' },
+  { type: 'cover',     icon: Home,       label: 'Home'    },
+  { type: 'media',     icon: Images,     label: 'Photos'  },
+  { type: 'details',   icon: AlignLeft,  label: 'Details' },
+  { type: 'amenities', icon: LayoutGrid, label: 'Features'},
 ]
+
+const shadow = '0 1px 4px rgba(0,0,0,0.55)'
 
 export function SlideNav({ slides, current, onJump }: SlideNavProps) {
   const currentType = slides[current]?.type
@@ -31,7 +33,7 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
   }
 
   return (
-    <div className="absolute right-3 bottom-[22%] z-20 flex flex-col gap-5">
+    <div className="absolute right-2 bottom-[20%] z-20 flex flex-col gap-4">
       {NAV_ITEMS.map(({ type, icon: Icon, label }) => {
         const targetIndex = firstIndexOf(type)
         if (targetIndex === -1) return null
@@ -39,26 +41,29 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
         const isActive = currentType === type
 
         return (
-          <div key={type} className="flex flex-col items-center gap-1">
-            <button
-              aria-label={label}
-              onClick={(e) => {
-                e.stopPropagation()
-                onJump(targetIndex)
-              }}
-              className={`
-                w-11 h-11 flex items-center justify-center
-                transition-opacity duration-200
-                ${isActive ? 'opacity-100' : 'opacity-50'}
-              `}
-              style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }}
+          <button
+            key={type}
+            aria-label={label}
+            onClick={(e) => {
+              e.stopPropagation()
+              onJump(targetIndex)
+            }}
+            className={`
+              flex flex-col items-center gap-[3px] w-12
+              transition-opacity duration-200
+              ${isActive ? 'opacity-100' : 'opacity-60'}
+            `}
+          >
+            <span style={{ filter: `drop-shadow(${shadow})` }}>
+              <Icon size={36} strokeWidth={1.5} color="white" />
+            </span>
+            <span
+              className="text-white text-[11px] font-semibold leading-none"
+              style={{ textShadow: shadow }}
             >
-              <Icon size={28} strokeWidth={1.5} color="white" />
-            </button>
-            {isActive && (
-              <span className="w-1 h-1 rounded-full bg-white" />
-            )}
-          </div>
+              {label}
+            </span>
+          </button>
         )
       })}
     </div>
