@@ -31,7 +31,7 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
   }
 
   return (
-    <div className="absolute right-3 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3">
+    <div className="absolute right-3 bottom-[22%] z-20 flex flex-col gap-5">
       {NAV_ITEMS.map(({ type, icon: Icon, label }) => {
         const targetIndex = firstIndexOf(type)
         if (targetIndex === -1) return null
@@ -39,7 +39,7 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
         const isActive = currentType === type
 
         return (
-          <div key={type} className="flex flex-col items-center gap-0.5">
+          <div key={type} className="flex flex-col items-center gap-1">
             <button
               aria-label={label}
               onClick={(e) => {
@@ -47,16 +47,16 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
                 onJump(targetIndex)
               }}
               className={`
-                w-8 h-8 rounded-full bg-black/25 backdrop-blur-sm
-                flex items-center justify-center
+                w-11 h-11 flex items-center justify-center
                 transition-opacity duration-200
-                ${isActive ? 'opacity-100' : 'opacity-40'}
+                ${isActive ? 'opacity-100' : 'opacity-50'}
               `}
+              style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }}
             >
-              <Icon size={16} strokeWidth={1.75} color="white" />
+              <Icon size={28} strokeWidth={1.5} color="white" />
             </button>
             {isActive && (
-              <span className="w-1 h-1 rounded-full bg-white/80" />
+              <span className="w-1 h-1 rounded-full bg-white" />
             )}
           </div>
         )
