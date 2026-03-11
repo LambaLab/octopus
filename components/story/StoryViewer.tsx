@@ -20,8 +20,8 @@ interface StoryViewerProps {
 function buildSlides(data: Property): SlideDescriptor[] {
   return [
     { type: 'cover' },
-    ...data.images.map((_, i): SlideDescriptor => ({ type: 'media', index: i })),
     { type: 'details' },
+    ...data.images.map((_, i): SlideDescriptor => ({ type: 'media', index: i })),
     { type: 'amenities' },
     { type: 'map' },
   ]
@@ -59,6 +59,23 @@ export function StoryViewer({ data, isEmbed = false }: StoryViewerProps) {
     setCurrent(index)
     setProgressKey((k) => k + 1)
   }, [])
+
+  // Keyboard navigation: ← prev, → next, Space toggle pause
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); goNext() }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev() }
+      else if (e.key === ' ') {
+        e.preventDefault()
+        setPaused((p) => {
+          if (!p) setProgressKey((k) => k + 1)
+          return !p
+        })
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [goNext, goPrev])
 
   // Auto-advance timer — reset whenever current slide or paused state changes
   useEffect(() => {

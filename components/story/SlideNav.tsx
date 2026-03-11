@@ -49,19 +49,13 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
               onJump(targetIndex)
             }}
             className={`
-              flex flex-col items-center gap-[3px] w-10
+              flex items-center justify-center w-10 h-10
               transition-opacity duration-200
-              ${isActive ? 'opacity-100' : 'opacity-60'}
+              ${isActive ? 'opacity-100' : 'opacity-55'}
             `}
           >
             <span style={{ filter: `drop-shadow(${shadow})` }}>
               <Icon size={24} strokeWidth={1.75} color="white" />
-            </span>
-            <span
-              className="text-white text-[11px] font-semibold leading-none"
-              style={{ textShadow: shadow }}
-            >
-              {label}
             </span>
           </button>
         )
