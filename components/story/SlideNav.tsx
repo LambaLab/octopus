@@ -33,7 +33,7 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
   }
 
   return (
-    <div className="absolute right-2 bottom-[20%] z-20 flex flex-col gap-4">
+    <div className="absolute right-2 bottom-[12%] z-20 flex flex-col gap-5">
       {NAV_ITEMS.map(({ type, icon: Icon, label }) => {
         const targetIndex = firstIndexOf(type)
         if (targetIndex === -1) return null
@@ -55,10 +55,10 @@ export function SlideNav({ slides, current, onJump }: SlideNavProps) {
             `}
           >
             <span style={{ filter: `drop-shadow(${shadow})` }}>
-              <Icon size={36} strokeWidth={1.5} color="white" />
+              <Icon size={36} strokeWidth={2} color="white" />
             </span>
             <span
-              className="text-white text-[11px] font-semibold leading-none"
+              className="text-white text-[12px] font-semibold leading-none"
               style={{ textShadow: shadow }}
             >
               {label}
